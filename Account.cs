@@ -35,6 +35,7 @@ namespace BankAccount
         /// </summary>
         /// <param name="amount">The positive amount will deposit into the account</param>
         /// <returns>Return the account's balance after depoist </returns>
+        
         public double Deposit(double amount)
         {
             if (amount > 0)
@@ -43,7 +44,7 @@ namespace BankAccount
             }
             else
             {
-                throw new ArgumentException("Amount must be positive");
+                throw new ArgumentOutOfRangeException($"The {nameof(amount)} must be positive");
             }
             
             return Balance;
@@ -56,8 +57,12 @@ namespace BankAccount
         /// <returns>Return the account's balance after withdraw</returns>
         public double Withdraw(double amount)
         {
-            if(Balance >= amount) { 
+            if(amount > 0 && Balance >= amount) { 
                 Balance -= amount;
+            } 
+            else
+            {
+                throw new ArgumentOutOfRangeException($"The {nameof(amount)} must be less than the balance");
             }
             return Balance;
         }
